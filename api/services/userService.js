@@ -1,5 +1,6 @@
 const { User } = require("../config/db/sequelize");
 const FormUser = require("../dto/request/formUser");
+const getCurrentDate = require("../helpers/currentDate");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const _ = require("lodash");
@@ -8,7 +9,7 @@ class UserServices {
   static async create(userData) {
     try {
       const inputData = new FormUser();
-      
+
       Object.keys(inputData).forEach((key) => {
         if (userData.hasOwnProperty(key)) {
           if (!_.isEmpty(userData[key])) {
@@ -16,6 +17,8 @@ class UserServices {
           }
         }
       });
+
+      inputData.created_at = getCurrentDate().timestampNow;
 
       if (!_.isEmpty(inputData.password)) {
         inputData.password = bcrypt.hashSync(inputData.password, 10);
@@ -89,6 +92,22 @@ class UserServices {
       );
 
       return token;
+
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  static async findAll() {
+    try {
+      const findAllUsers = await User.findAll({
+        attributes: {
+          exclude: ["password", "created_at", "updated_at"]
+        },
+        order: [["id", "ASC"]]
+      });
+
+      return findAllUsers;
 
     } catch (err) {
       throw err;

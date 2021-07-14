@@ -39,13 +39,24 @@ class UserControllers {
     }
   }
 
-  static async get(req, res, next) {
-    
+  static async findAll(req, res, next) {
+    try {
+      const fetchUsers = await UserService.findAll();
+
+      return res.status(200).json({
+        message: "Successfully fetch users data!",
+        results: fetchUsers,
+        request: {
+          type: "GET",
+          url: "/users"
+        }
+      });
+
+    } catch (err) {
+      next(err)
+    }
   }
 
-  static async detail(req, res, next) {
-    
-  }
 }
 
 module.exports = UserControllers;

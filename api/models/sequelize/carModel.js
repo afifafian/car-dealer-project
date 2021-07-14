@@ -53,27 +53,31 @@ module.exports = (sequelize, type) => {
         }
       }
     },
-    cost: {
+    price: {
       type: type.NUMERIC,
       allowNull: false,
       validate: {
+        min: {
+          args: 10000000,
+          msg: "Minimum Car price is IDR 10.000.000!"
+        },
         notNull: {
-          msg: "cost is required!"
+          msg: "price is required!"
         },
         notEmpty: {
-          msg: "cost is required!"
+          msg: "price is required!"
         }
       }
     },
-    quantity: {
+    stock: {
       type: type.NUMERIC,
       allowNull: false,
       validate: {
         notNull: {
-          msg: "quantity is required!"
+          msg: "stock is required!"
         },
         notEmpty: {
-          msg: "quantity is required!"
+          msg: "stock is required!"
         }
       }
     },
