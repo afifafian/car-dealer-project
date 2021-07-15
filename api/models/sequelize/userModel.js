@@ -9,6 +9,10 @@ module.exports = (sequelize, type) => {
       type: type.STRING,
       allowNull: false,
       validate: {
+        isEmail: {
+          args: true,
+          msg: "Invalid email format!"
+        },
         notNull: {
           msg: "email is required!"
         },
