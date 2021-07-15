@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const { Cart } = require("../config/db/sequelize");
+const { jwtVerify } = require("../helpers/token");
 
 const authentication = (req, res, next) => {
   try {
@@ -13,7 +14,7 @@ const authentication = (req, res, next) => {
       };
     }
 
-    const decodedJWT = jwt.verify(token, process.env.JWT_KEY);
+    const decodedJWT = jwtVerify(token);
 
     req.userData = decodedJWT;
 

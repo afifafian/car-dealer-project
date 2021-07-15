@@ -2,11 +2,9 @@
     "env":{
         "JWT_KEY" : "secretkey",
         "JWT_TOKENLIFE" : "1h",
-        "DB_PORT" : "5432",
         "DB_NAME" : "backend-test",
         "DB_USER" : "postgres",
         "DB_PWD" : "postgres",
-        "DB_HOST" : "localhost",
         "PORT" : 3005
     }
 }

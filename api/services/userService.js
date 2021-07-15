@@ -2,7 +2,7 @@ const { User } = require("../config/db/sequelize");
 const FormUser = require("../dto/request/formUser");
 const getCurrentDate = require("../helpers/currentDate");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const { jwtSign } = require("../helpers/token");
 const _ = require("lodash");
 
 class UserServices {
@@ -84,12 +84,7 @@ class UserServices {
         user_type: userData.user_type
       };
 
-      const token = jwt.sign(tokenPayload, 
-        process.env.JWT_KEY,
-        {
-          expiresIn: process.env.JWT_TOKENLIFE
-        }
-      );
+      const token = jwtSign(tokenPayload);
 
       return token;
 

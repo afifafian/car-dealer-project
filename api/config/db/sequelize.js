@@ -3,10 +3,14 @@ const UserModel = require("../../models/sequelize/userModel");
 const CarModel = require("../../models/sequelize/carModel");
 const CartModel = require("../../models/sequelize/cartModel");
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PWD, {
-  host: process.env.DB_HOST,
+const dbName = process.env.DB_NAME || "backend-test";
+const dbPwd = process.env.DB_PWD || "postgres";
+const dbUser = process.env.DB_USER || "postgres";
+
+const sequelize = new Sequelize(dbName, dbUser, dbPwd, {
+  host: "localhost",
   dialect: 'postgres',
-  port: process.env.DB_PORT,
+  port: 5432,
   logging: false,
   pool: {
     max: 10,
