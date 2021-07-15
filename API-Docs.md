@@ -284,16 +284,15 @@ Get detail car data by requested params id
 {
   "message": "Successfully fetch detail car!",
   "result": {
-    "car_id": "1",
-    "car_type": "SUV",
-    "car_color": "Black",
-    "car_brand": "Toyota",
+    "carID": "1",
+    "carType": "SUV",
+    "carColor": "Black",
+    "carBrand": "Toyota",
+    "carCreated": "2021-07-14T02:40:12.000Z",
+    "carUpdated": "2021-07-14T09:52:33.000Z",
     "production_year": "2015",
     "price": "Rp 400.000.000,00",
-    "stock": "200",
-    "created_at": "2021-07-14T02:40:12.000Z",
-    "updated_at": "2021-07-14T09:52:33.000Z",
-    "deleted_at": null
+    "stock": "200"
   },
   "request": {
     "type": "GET",
@@ -532,8 +531,8 @@ normal type can only see theirs)
       "carType": "SUV",
       "carBrand": "Toyota",
       "carColor": "Black",
-      "quantity": "2",
-      "cost": "Rp 800.000.000,00"
+      "cost": "Rp 800.000.000,00",
+      "quantity": "2"
     },
     {
       "bookingID": "1",
@@ -543,8 +542,8 @@ normal type can only see theirs)
       "carType": "SUV",
       "carBrand": "Toyota",
       "carColor": "Black",
+      "cost": "Rp 400.000.000,00",
       "quantity": "1",
-      "cost": "Rp 400.000.000,00"
     },
     {
       "bookingID": "7",
@@ -554,8 +553,8 @@ normal type can only see theirs)
       "carType": "City Car",
       "carBrand": "Avanza",
       "carColor": "White",
+      "cost": "Rp 3.600.000.000,00",
       "quantity": "18",
-      "cost": "Rp 3.600.000.000,00"
     }
   ],
   "request": {
@@ -594,27 +593,20 @@ Get detail cart data by requested param id (Normal User can only see their own c
 {
   "message": "Successfully fetch detail cart data!",
   "result": {
-    "id": "2",
-    "user_id": "4",
-    "car_id": "3",
-    "status": "on-going",
-    "cost": "Rp. 400.000.000,00",
-    "quantity": "2",
-    "created_at": "2021-07-14T09:38:03.000Z",
-    "updated_at": null,
-    "deleted_at": null,
-    "car": {
-      "car_id": "3",
-      "car_type": "City Car",
-      "car_color": "White",
-      "car_brand": "Toyota",
-      "production_year": "2019",
-      "price": "Rp 200.000.000,00",
-      "stock": "482",
-      "created_at": "2021-07-14T14:00:05.000Z",
-      "updated_at": null,
-      "deleted_at": null
-    }
+    "cartID": "10",
+    "userID": "5",
+    "carID": "7",
+    "status": "success",
+    "cartCreated": "2021-07-15T10:58:03.000Z",
+    "cartUpdated": "2021-07-15T11:34:12.000Z",
+    "carType": "Sport Car",
+    "carColor": "Black",
+    "carBrand": "BMW",
+    "production_year": "2018",
+    "stock": "16",
+    "price": "Rp 2.500.000.000,00",
+    "quantity": "4",
+    "cost": "Rp 10.000.000.000,00",
   },
   "request": {
     "type": "GET",

@@ -1,13 +1,20 @@
 const CarService = require("../services/carService");
+const CarResponse = require("../dto/response/car/carResponse");
 
 class CarControllers {
   static async get(req, res, next) {
     try {
       const fetchCars = await CarService.findAll();
 
+      const data = fetchCars.map(car => {
+        const response = new CarResponse();
+        response.setCarResponse(car);
+        return response;
+      });
+
       return res.status(200).json({
         message: "Successfully fetch cars data!",
-        results: fetchCars,
+        results: data,
         request: {
           type: "GET",
           url: "/cars"
@@ -25,9 +32,12 @@ class CarControllers {
 
       const getDetailCar = await CarService.detail(car_id);
 
+      const response = new CarResponse();
+      response.setCarResponse(getDetailCar);
+
       return res.status(200).json({
         message: "Successfully fetch detail car!",
-        result: getDetailCar,
+        result: response,
         request: {
           type: "GET",
           url: `/cars/${car_id}`

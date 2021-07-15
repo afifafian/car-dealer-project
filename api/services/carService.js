@@ -13,14 +13,7 @@ class CarServices {
         }
       });
 
-      return findAllCars.map(car => {
-        return {
-          carID: car.car_id,
-          carType: car.car_type,
-          carBrand: car.car_brand,
-          carPrice: converter(+car.price),
-        };
-      });
+      return findAllCars;
 
     } catch (err) {
       throw err;
@@ -75,7 +68,7 @@ class CarServices {
         carBrand: createNewCar.car_brand,
         carColor: createNewCar.car_color,
         productionYear: createNewCar.production_year,
-        price: converter(+createNewCar.price),
+        price: converter(createNewCar.price),
         stock: createNewCar.stock
       };
 

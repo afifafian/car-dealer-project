@@ -37,19 +37,7 @@ class CartServices {
         ]
       });
 
-      return findAllCart.map(item => {
-        return {
-          bookingID: item.id,
-          status: item.status,
-          customerName: item.user.username,
-          carPrice: converter(+item.car.price),
-          carType: item.car.car_type,
-          carBrand: item.car.car_brand,
-          carColor: item.car.car_color,
-          quantity: item.quantity,
-          cost: converter(+item.cost)
-        };
-      });
+      return findAllCart;
 
     } catch (err) {
       throw err;
@@ -279,10 +267,10 @@ class CartServices {
       );
 
       return {
-        price: converter(+detailCart.car.price),
+        price: converter(detailCart.car.price),
         quantity: detailCart.quantity,
-        totalCost: converter(+detailCart.cost),
-        yourPayment: converter(+paymentAmount),
+        totalCost: converter(detailCart.cost),
+        yourPayment: converter(paymentAmount),
         exchange: converter(+paymentAmount - +detailCart.cost)
       };
 

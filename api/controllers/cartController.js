@@ -1,4 +1,5 @@
 const CartServices = require("../services/cartService");
+const CartResponse = require("../dto/response/cart/cartResponse");
 
 class CartControllers {
   static async get(req, res, next) {
@@ -6,10 +7,16 @@ class CartControllers {
       const userData = req.userData;
 
       const fetchCart = await CartServices.findAll(userData);
+      
+      const data = fetchCart.map(cart => {
+        const response = new CartResponse();
+        response.setCartResponse(cart);
+        return response;
+      });
 
       return res.status(200).json({
         message: "Successfully fetch cart data!",
-        results: fetchCart,
+        results: data,
         request: {
           type: "GET",
           url: "/cart"
@@ -28,9 +35,12 @@ class CartControllers {
 
       const detailCart = await CartServices.detail(cartID, userData);
 
+      const response = new CartResponse();
+      response.setCartResponse(detailCart);
+
       return res.status(200).json({
         message: "Successfully fetch detail cart data!",
-        result: detailCart,
+        result: response,
         request: {
           type: "GET",
           url: `/cart/${cartID}`
