@@ -70,7 +70,7 @@ class UserServices {
       if (!bcrypt.compareSync(loginData.password, userData.password)) {
         throw {
           name: "Custom_Error",
-          status: 400,
+          status: 401,
           message: `Wrong input password!`,
         };
       }

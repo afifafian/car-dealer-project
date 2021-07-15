@@ -56,13 +56,22 @@ class CartServices {
     }
   }
 
-  static async detail(cartID) {
+  static async detail(cartID, userData) {
     try {
+
+      const whereCondition = {
+        id: cartID,
+        deleted_at: null
+      };
+
+      if (userData.user_type !== "Admin") {
+        Object.assign(whereCondition, {
+          user_id: userData.id
+        });
+      }
+
       const findDetailCart = await Cart.findOne({
-        where: {
-          id: cartID,
-          deleted_at: null
-        },
+        where: whereCondition,
         include: [{ model: Car }]
       });
 
@@ -128,7 +137,7 @@ class CartServices {
 
       const availableCar = await this.checkStock(inputData.car_id);
 
-      if (availableCar.stock < inputData.quantity) {
+      if (+availableCar.stock < +inputData.quantity) {
         throw {
           name: "Custom_Error",
           status: 400,
@@ -149,9 +158,9 @@ class CartServices {
     }
   }
 
-  static async update(cartID, cartData) {
+  static async update(cartID, cartData, userData) {
     try {
-      await this.detail(cartID);
+      await this.detail(cartID, userData);
       
       const inputData = new FormCart();
       delete inputData.created_at;
@@ -164,9 +173,13 @@ class CartServices {
         }
       });
 
+      if (userData.user_type !== "Admin") {
+        inputData.user_id = userData.id;
+      }
+
       const availableCar = await this.checkStock(inputData.car_id);
 
-      if (availableCar.stock < inputData.quantity) {
+      if (+availableCar.stock < +inputData.quantity) {
         throw {
           name: "Custom_Error",
           status: 400,
@@ -190,9 +203,9 @@ class CartServices {
     }
   }
 
-  static async softDelete(cartID) {
+  static async softDelete(cartID, userData) {
     try {
-      await this.detail(cartID);
+      await this.detail(cartID, userData);
 
       const softDeleteCart = await Cart.update(
         {
@@ -213,9 +226,9 @@ class CartServices {
     }
   }
 
-  static async delete(cartID) {
+  static async delete(cartID, userData) {
     try {
-      await this.detail(cartID);
+      await this.detail(cartID, userData);
 
       const deleteCart = await Cart.destroy({
         where: {
@@ -230,9 +243,9 @@ class CartServices {
     }
   }
 
-  static async checkOut(cartID, paymentAmount) {
+  static async checkOut(cartID, paymentAmount, userData) {
     try {
-      const detailCart = await this.detail(cartID);
+      const detailCart = await this.detail(cartID, userData);
 
       if (detailCart.status === "success") {
         throw {

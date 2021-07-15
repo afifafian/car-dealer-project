@@ -24,8 +24,9 @@ class CartControllers {
   static async detail(req, res, next) {
     try {
       const { cartID } = req.params;
+      const userData = req.userData
 
-      const detailCart = await CartServices.detail(cartID);
+      const detailCart = await CartServices.detail(cartID, userData);
 
       return res.status(200).json({
         message: "Successfully fetch detail cart data!",
@@ -65,8 +66,9 @@ class CartControllers {
     try {
       const { cartID } = req.params;
       const cartData = req.body;
+      const userData = req.userData;
 
-      const updateCart = await CartServices.update(cartID, cartData);
+      const updateCart = await CartServices.update(cartID, cartData, userData);
 
       return res.status(200).json({
         message: "Successfully updated cart data!",
@@ -85,8 +87,9 @@ class CartControllers {
   static async softDelete(req, res, next) {
     try {
       const { cartID } = req.params;
+      const userData = req.userData;
 
-      const softDeleteCart = await CartServices.softDelete(cartID);
+      const softDeleteCart = await CartServices.softDelete(cartID, userData);
 
       return res.status(200).json({
         message: "Successfully deleted cart data!",
@@ -105,8 +108,9 @@ class CartControllers {
   static async destroy(req, res, next) {
     try {
       const { cartID } = req.params;
+      const userData = req.userData;
 
-      const deleteCart = await CartServices.delete(cartID);
+      const deleteCart = await CartServices.delete(cartID, userData);
 
       return res.status(200).json({
         message: "Successfully deleted cart data!",
@@ -126,8 +130,9 @@ class CartControllers {
     try {
       const { cartID } = req.params;
       const { payment_amount } = req.body;
+      const userData = req.userData;
 
-      const checkOutCart = await CartServices.checkOut(cartID, payment_amount);
+      const checkOutCart = await CartServices.checkOut(cartID, payment_amount, userData);
 
       return res.status(200).json({
         message: "Payment success!",

@@ -8,7 +8,7 @@ const authentication = (req, res, next) => {
     if(!token) {
       throw {
         name: "Custom_Error",
-        status: 400,
+        status: 401,
         message: `Invalid Token data!`
       };
     }
@@ -41,18 +41,18 @@ const adminAccess = (req, res, next) => {
   }
 };
 
-const limitedAccess = async (req, res, next) => {
+const normalAccess = async (req, res, next) => {
   try {
     if (req.userData.user_type !== "Admin") {
       const { cartID } = req.params;
       
-      const findCartOwner = await Cart.findOne({
+      const cartData = await Cart.findOne({
         where: {
           id: cartID
         }
       });
 
-      if (!findCartOwner) {
+      if (!cartData) {
         throw {
           name: "Custom_Error",
           status: 404,
@@ -60,7 +60,7 @@ const limitedAccess = async (req, res, next) => {
         };
       }
 
-      if (+findCartOwner.user_id !== +req.userData.id ) {
+      if (+cartData.user_id !== +req.userData.id ) {
         throw {
           name: "Custom_Error",
           status: 403,
@@ -86,5 +86,5 @@ const limitedAccess = async (req, res, next) => {
 module.exports = {
   authentication,
   adminAccess,
-  limitedAccess
+  normalAccess
 };
